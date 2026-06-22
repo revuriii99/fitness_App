@@ -3,14 +3,8 @@ import 'package:fitness/models/diet_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends StatelessWidget {
   HomePage({super.key});
-
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
 
   List<CategoryModel> categories = [];
   List<DietModel> diets = [];
@@ -18,11 +12,6 @@ class _HomePageState extends State<HomePage> {
   void _getInitialInfo() {
     categories = CategoryModel.getCategories();
     diets = DietModel.getDiets();
-  }
-
-  @override
-  void initstate() {
-    _getInitialInfo();
   }
 
   @override
@@ -54,8 +43,46 @@ class _HomePageState extends State<HomePage> {
               ),
               SizedBox(height: 15,),
               Container(
-                color: Colors.blue,
                 height: 240,
+                child: ListView.separated(
+                  itemBuilder: (context, index) {
+                    return Container(
+                      width: 210,
+                      decoration: BoxDecoration(
+                        color: diets[index].boxColor.withOpacity(0.3),
+                        borderRadius: BorderRadius.circular(20)
+                      ),
+                      child: Column(
+                        children: [
+                          SvgPicture.asset(diets[index].iconPath),
+                          Text(
+                            diets[index].name,
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              color: Colors.black,
+                              fontSize: 16
+                            ),
+                          ),
+                          Text(
+                            diets[index].level + ' | ' + diets[index].duration + ' | ' + diets[index].calorie,
+                            style: TextStyle(
+                              color: Color(0xff7B6F72),
+                              fontSize: 13,
+                              fontWeight: FontWeight.w400
+                            ),
+                          )
+                        ],
+                      ),
+                    );
+                  },
+                  separatorBuilder: (context, index) => SizedBox(width: 25,), 
+                  itemCount: diets.length,
+                  scrollDirection: Axis.horizontal,
+                  padding: EdgeInsets.only(
+                    left: 20,
+                    right: 20
+                  ),
+                 ),
               )
             ],
           )
@@ -244,3 +271,5 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
+
+
