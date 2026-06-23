@@ -25,7 +25,7 @@ class DietModel {
     diets.add(
       DietModel(
         name: 'Honey Pancake',
-        iconPath: 'assets/icons/honey-pancake.svg',
+        iconPath: 'assets/icons/honey-pancakes.svg',
         level: 'Easy',
         duration: '30mins',
         calorie: '180kCal',
